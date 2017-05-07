@@ -33,3 +33,5 @@ app.route("/task")
 
 app.listen(port);
 console.log("Listening on port " + port);
+
+module.exports = app; // for testing
