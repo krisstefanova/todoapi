@@ -15,12 +15,14 @@ app.use(bodyParser.json({ type: 'application/json'}));
 
 //db options
 let options = {
-  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } }
 };
 
 //db connection
 mongoose.connect(config.DBHost, options);
 let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 app.get("/", (req, res) => res.json({message: "Welcome to our ToDo app!"}));
 
