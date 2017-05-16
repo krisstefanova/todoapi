@@ -5,7 +5,7 @@ let mongoose = require('mongoose');
 let config = require('./config/default');
 let task = require('./app/routes/task');
 
-let port = 8080;
+let port = process.env.PORT || 8080;
 
 //parse application/json and look for raw text
 app.use(bodyParser.json());
@@ -28,6 +28,8 @@ app.get("/", (req, res) => res.json({message: "Welcome to our ToDo app!"}));
 
 app.route("/tasks")
     .get(task.getTasks);
+app.route("/task/:id")
+    .get(task.getTask);
 app.route("/task")
     .post(task.postTask);
 

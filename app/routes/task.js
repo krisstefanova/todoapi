@@ -8,9 +8,21 @@ function getTasks(req, res) {
     let query = Task.find({});
     
     query.exec((err, tasks) => {
-        if(err) res.send(err);
+        if (err) res.send(err);
         // if no errors, send them back to the user
         res.json(tasks);
+    });
+}
+
+/*
+ * GET /todo/:id route to retrieve a task by id.
+ */
+function getTask(req, res) {
+    Task.findById(req.params.id, (err, task) => {
+        if (err) res.send(err);
+        
+        // in case of no errors, send it back
+        res.json(task);
     });
 }
 
@@ -21,7 +33,7 @@ function postTask(req, res) {
     var newTask = new Task(req.body);
     // save it in the db
     newTask.save((err, task) => {
-        if(err) {
+        if (err) {
             res.send(err);
         }
         else { 
@@ -32,6 +44,7 @@ function postTask(req, res) {
 
 //export all route interfaces
 module.exports = { 
-  getTasks, 
+  getTasks,
+  getTask, 
   postTask 
 };

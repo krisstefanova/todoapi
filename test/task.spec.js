@@ -32,6 +32,28 @@ describe('Tasks', () => {
             });
       });
   });
+  
+  /*
+  * Test the /GET/:id method
+  */
+  describe('/GET/:id task', () => {
+      it('it should GET a task by id', (done) => {
+        let task = new Task({ title: "Clean up the garden", description: "Some plants need to be cleaned from  dry leaves"});
+        task.save((err, task) => {
+            chai.request(server)
+            .get('/task/' + task.id)
+            .send(task)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('description');
+                res.body.should.have.property('_id').eql(task.id);
+              done();
+            });
+          });
+      });
+  });
 
   /*
   * Test the /POST method
