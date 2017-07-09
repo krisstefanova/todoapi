@@ -29,7 +29,9 @@ app.get("/", (req, res) => res.json({message: "Welcome to our ToDo app!"}));
 app.route("/tasks")
     .get(task.getTasks);
 app.route("/task/:id")
-    .get(task.getTask);
+    .get(task.getTask)
+    .put(task.updateTask)
+    .delete(task.removeTask);
 app.route("/task")
     .post(task.postTask);
 
